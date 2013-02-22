@@ -1,17 +1,20 @@
 <?php
 
+namespace helpers;
+
 /**
  * Classe helper de stream
  *
  * @author Alexsandro Souza
  */
-class Stream {
+class Stream
+{
 
 	/**
 	 * Realiza o download de um arquivo para o servidor
-	 * @param string $remoteFile EndereÃ§o do arquivo remoto
-	 * @param string $savePath endereÃ§o onde serÃ¡ salvo o arquivo baixado
-	 * @return string Nome do arquivo baixado e salvo no endereÃ§o informado
+	 * @param string $remoteFile Endereço http do arquivo a ser baixado
+	 * @param string $savePath Caminho no servidor local onde será salvo o arquivo
+	 * @return string Nome do arquivo salvo na pasta informada
 	 */
 	public static function download($remoteFile, $savePath)
 	{
@@ -29,7 +32,7 @@ class Stream {
 	}
 
 	/**
-	 * Retorna uma url curta, utilizando um serviÃ§o do migreme
+	 * Retorna uma url curta, utilizando um serviço do migreme
 	 * @return String string com a url curta
 	 */
 	public static function getShortUrl($url)
@@ -39,8 +42,8 @@ class Stream {
 	}
 
 	/**
-	 * Retorna o conteÃºdo de uma url usando curl
-	 * @return String string com o conteÃºdo da pÃ¡gina
+	 * Retorna o conteúdo de uma url usando curl
+	 * @return String string com o contéudo da página
 	 */
 	public static function getContentUrlByCurl($url)
 	{
@@ -59,8 +62,6 @@ class Stream {
 
 	/**
 	 * Analisa se a url informada existe  
-	 * @param string $file endereÃ§o remoto do arquivo
-	 * @return boolean resultado da consulta
 	 * */
 	public function fileExist($file)
 	{
@@ -75,41 +76,6 @@ class Stream {
 			return false;
 		}
 		return true;
-	}
-
-	/**
-	 * Realiza um post para a url usando Curl
-	 * @param string $apiCall  url para onde serÃ¡ enviado os dados 
-	 * @param array $param Array contendo os paramentros a serem postas
-	 * @param string $ssl Caminho do certificado ssl 
-	 * @return string o retorno do post
-	 */
-	public static function post($apiCall, $params, $ssl = false)
-	{
-		if (isset($params) && is_array($params)) {
-			$paramString = '&' . http_build_query($params);
-		} else {
-			$paramString = null;
-		}
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $apiCall);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-		if ($ssl) {
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-			curl_setopt($ch, CURLOPT_CAINFO, $ssl);
-		}
-		curl_setopt($ch, CURLOPT_POST, count($params));
-		curl_setopt($ch, CURLOPT_POSTFIELDS, ltrim($paramString, '&'));
-		$result = curl_exec($ch);
-		curl_close($ch);
-
-		if (!$result) {
-			throw new Exception(curl_error($ch), curl_errno($ch));
-		}
-		return $result;
 	}
 
 }

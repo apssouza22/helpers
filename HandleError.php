@@ -1,5 +1,7 @@
 <?php
 
+namespace helpers;
+
 /**
  * Manipula os errors fatais do projeto, redirecionando para uma página de aviso 
  * e notificando os responsaveis
@@ -111,4 +113,5 @@ class HandleError
 	}
 
 }
+
 ?>

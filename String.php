@@ -1,5 +1,7 @@
 <?php
 
+namespace helpers;
+
 /**
  * Helper de strings
  *

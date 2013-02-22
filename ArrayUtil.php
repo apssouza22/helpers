@@ -1,5 +1,7 @@
 <?php
 
+namespace helpers;
+
 /**
  * Description of Array
  *
@@ -8,7 +10,7 @@
 class ArrayUtil
 {
 
-	public function removeItemByValue($value,$array)
+	public function removeItemByValue($value, $array)
 	{
 		if (in_array($value, $array)) {
 			$pos = array_search($value, $array);

@@ -1,5 +1,7 @@
 <?php
 
+namespace helpers;
+
 /**
  * Helper de datas
  *
@@ -7,6 +9,7 @@
  */
 class Date
 {
+
 	/**
 	 * Retorna a data preparada para ser enviada ao MySQL no formato DATE ou DATETIME (se fornecida a hora) 
 	 * @param string $quando data no formato mm/dd/yyyy
@@ -35,21 +38,23 @@ class Date
 			return date("Y-m-d H:i:s", mktime($hora, $minuto, $segundo, $mes, $dia, $ano));
 		}
 	}
-	
+
 	/**
 	 * Retorna a representação textual dos dias da semana ou o dia se passado o parametro
 	 * @param int $day representação numerica do dia da semana
 	 * @param boolean $complete acrescenta a -feira junto aos dias
 	 * @return string com o dia da semana 
 	 */
-	public static function getDayWeek($day = null, $complete = false){
+	public static function getDayWeek($day = null, $complete = false)
+	{
 		$feira = $complete ? '-feira' : '';
-		$days =   array('Domingo', 'Segunda'.$feira, 'Terça'.$feira, 'Quarta'.$feira, 'Quinta'.$feira, 'Sexta'.$feira, 'Sábado');
-		if($day){
+		$days = array('Domingo', 'Segunda' . $feira, 'Terça' . $feira, 'Quarta' . $feira, 'Quinta' . $feira, 'Sexta' . $feira, 'Sábado');
+		if ($day) {
 			return $days[$day];
 		}
 		return $days;
 	}
+
 }
 
 ?>

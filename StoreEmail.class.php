@@ -1,5 +1,7 @@
 <?php
 
+namespace helpers;
+
 //=======================================================//
 //Query sql da tabela
 //=======================================================//
@@ -21,7 +23,8 @@
  *
  * @author Alexsandro Souza
  */
-class StoreEmail {
+class StoreEmail
+{
 
 	const TB_NAME = 'store_email';
 	const PG_LISTAR = 'suporte/listar_emails.php';

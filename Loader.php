@@ -1,5 +1,7 @@
 <?php
 
+namespace helpers;
+
 class Loader
 {
 
@@ -7,8 +9,9 @@ class Loader
 	{
 		$this->load($className);
 	}
-	
-	public function load($className){
+
+	public function load($className)
+	{
 		$vetor_pastas[] = CONTROLLER;
 		$vetor_pastas[] = VIEWS;
 		$vetor_pastas[] = MODEL;
@@ -19,10 +22,10 @@ class Loader
 		$vetor_pastas[] = LIB . 'cache/';
 		$vetor_pastas[] = LIB . 'image/';
 		foreach ($vetor_pastas as $pasta) {
-			
+
 			if (file_exists(PATH_APP . $pasta . $className . '.php')) {
-				include_once( PATH_APP .$pasta . $className . '.php');
-			}else{
+				include_once( PATH_APP . $pasta . $className . '.php');
+			} else {
 				$this->loadClassByNamespace($className);
 			}
 		}
@@ -36,7 +39,7 @@ class Loader
 			array_splice($fileParts, -1, 1, explode('_', current($fileParts)));
 
 		$fileName = implode(DIRECTORY_SEPARATOR, $fileParts) . '.php';
-		if (file_exists($fileName)){
+		if (file_exists($fileName)) {
 			require_once $fileName;
 		}
 	}

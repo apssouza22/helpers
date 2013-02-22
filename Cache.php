@@ -1,6 +1,8 @@
 <?php
 
-class Cache 
+namespace helpers;
+
+class Cache
 {
 
 	protected $folder;
@@ -49,13 +51,13 @@ class Cache
 			return $result;
 		}
 	}
-	
-	public function clearAllCache(){
-		$files = scandir($this->folder) ;
-		foreach ($files as $filename) 
-		{
-			if(file_exists($this->folder .'/'. $filename)){
-				@unlink($this->folder .'/'. $filename);
+
+	public function clearAllCache()
+	{
+		$files = scandir($this->folder);
+		foreach ($files as $filename) {
+			if (file_exists($this->folder . '/' . $filename)) {
+				@unlink($this->folder . '/' . $filename);
 			}
 		}
 	}
