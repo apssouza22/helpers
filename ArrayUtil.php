@@ -7,17 +7,25 @@ namespace helpers;
  *
  * @author Alexsandro
  */
-class ArrayUtil
-{
+class ArrayUtil {
 
-	public function removeItemByValue($value, $array)
+	/**
+	 * Remove item array by value
+	 * @param string $val value search in array
+	 * @param array $array 
+	 * @return array 
+	 */
+	public function removeItemByValue($val, $array)
 	{
-		if (in_array($value, $array)) {
-			$pos = array_search($value, $array);
-			array_slice($array, $pos, 1);
-			return $array;
+		for ($x = 0; $x < count($array); $x++) {
+			$i = array_search($val, $array);
+			if (is_numeric($i)) {
+				$array_temp = array_slice($array, 0, $i);
+				$array_temp2 = array_slice($array, $i + 1, count($array) - 1);
+				$array = array_merge($array_temp, $array_temp2);
+			}
 		}
-		return false;
+		return $array;
 	}
 
 }

@@ -39,6 +39,7 @@ class Cache
 		if (!file_put_contents($filename, $value)) {
 			throw new Exception('Erro ao salvar o arquivo', $key);
 		}
+		return true;
 	}
 
 	public function read($key)

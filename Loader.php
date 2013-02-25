@@ -2,8 +2,18 @@
 
 namespace helpers;
 
-class Loader
-{
+class Loader {
+
+	private $includePath;
+	
+	/**
+	 * Create class for load classe
+	 * @param array $includePath Array of string with path of the class
+	 */
+	public function __construct($includePath)
+	{
+		$this->includePath = $includePath;
+	}
 
 	public function __invoke($className)
 	{
@@ -12,21 +22,11 @@ class Loader
 
 	public function load($className)
 	{
-		$vetor_pastas[] = CONTROLLER;
-		$vetor_pastas[] = VIEWS;
-		$vetor_pastas[] = MODEL;
-		$vetor_pastas[] = HELPER;
-		$vetor_pastas[] = LIB . "dataBase/";
-		$vetor_pastas[] = LIB . 'Respect/';
-		$vetor_pastas[] = LIB . 'facebook/';
-		$vetor_pastas[] = LIB . 'cache/';
-		$vetor_pastas[] = LIB . 'image/';
-		foreach ($vetor_pastas as $pasta) {
-
-			if (file_exists(PATH_APP . $pasta . $className . '.php')) {
-				include_once( PATH_APP . $pasta . $className . '.php');
+		foreach ($this->includePath  as $folder) {
+			if (file_exists( $folder . $className . '.php')) {
+				include_once $folder . $className . '.php';
 			} else {
-				$this->loadClassByNamespace($className);
+				$this->loadClassByNamespace($folder.$className);
 			}
 		}
 	}
@@ -44,7 +44,13 @@ class Loader
 		}
 	}
 
+	/**
+	 * Installs this class loader on the SPL autoload stack.
+	 */
+	public function register()
+	{
+		spl_autoload_register(array($this, 'load'));
+	}
+
 }
 
-if (!defined('RESPECT_DO_NOT_RETURN_AUTOLOADER'))
-	return new Loader;
