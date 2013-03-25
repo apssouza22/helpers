@@ -2,7 +2,7 @@
 
 namespace helpers;
 
-class Cache
+class CacheFile
 {
 
 	protected $folder;
