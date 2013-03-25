@@ -1,0 +1,30 @@
+<phpunit bootstrap="" colors="true">
+	<!--Onde estão os arquivos de teste-->
+	<testesuite name="testHelpers">
+		<directory>./</directory>
+	</testesuite>
+
+	<!--Onde estao os arquivos a serem testados-->
+	<filter>
+		<whitelist>
+			<directory suffix=".php">../</directory>
+			<!--<directory suffix=".php">../outrapasta</directory>-->
+		</whitelist>
+		<exclude>
+			<directory suffix=".phtml">../</directory>
+			<file>../config.php</file>
+		</exclude>
+	</filter>
+	<logging>
+<!--
+Relatórios 
+		lowUpperBound="35" hightLowerBound="70"
+		isso define no relótio qual é o percentual minimo e maximo  que vc espera cobrir de teste
+-->
+	<log type="coverage-html" target="./log/report" charset="UTF-8" yui="true"  hightlight="true" lowUpperBound="35" hightLowerBound="70" />
+	<log type="textdox-html" target="./log/testdox.html"  />
+
+	</logging>
+
+
+</phpunit>

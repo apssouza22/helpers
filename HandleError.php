@@ -5,6 +5,7 @@ namespace helpers;
 /**
  * Manipula os errors fatais do projeto, redirecionando para uma página de aviso 
  * e notificando os responsaveis
+ * Explicação de como usar, no final do arquivo
  *
  * @author Alexsandro Souza
  */
@@ -12,6 +13,13 @@ class HandleError
 {
 
 	public $urlHandle = 'tratarErro.php';
+	
+	public function __construct()
+	{
+		if(!file_exists($this->urlHandle)){
+			file_put_contents($this->urlHandle, '<?php $hErro = new HandleError(); $hErro->printInfoUser();?>');
+		}
+	}
 
 	public function listener()
 	{
@@ -96,7 +104,7 @@ class HandleError
 	/**
 	 * Printa o aviso ao visitante que houve erro no site
 	 */
-	private function printInfoUser()
+	public function printInfoUser()
 	{
 		$html = "
 			<html>
@@ -114,4 +122,13 @@ class HandleError
 
 }
 
-?>
+
+/**
+ * Em todas as páginas a ser monitoradas adicione o seguinte:
+ * $hErro = new HandleError();
+ * $hErro->listener();
+ * 
+ * Crie uma página 'tratarErro.php' e adicine o seguinte código:
+ * $hErro = new HandleError();
+ * $hErro->notify('email de destino','email de copia', 'email remetente','assunto', 'mensagem acompanhando o ero' );
+ */

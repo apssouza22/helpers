@@ -2,9 +2,7 @@
 
 namespace helpers;
 
-require_once dirname(__FILE__) . '/../Loader.php';
-$loader = new \helpers\Loader(array('../../'));
-$loader->register();
+require_once dirname(__FILE__) . '/../ArrayUtil.php';
 
 /**
  * Test class for ArrayUtil.
@@ -41,6 +39,7 @@ class ArrayUtilTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRemoveItemByValue()
 	{
+		var_dump($this->object->removeItemByValue(2, array(2, 3)));
 		$this->assertEquals(1,count($this->object->removeItemByValue(2, array(2, 3))));
 	}
 
