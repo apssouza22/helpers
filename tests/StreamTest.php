@@ -3,7 +3,7 @@
 namespace helpers;
 
 require_once dirname(__FILE__) . '/../Loader.php';
-$loader = new \helpers\Loader(array('../../'));
+$loader = new \helpers\Loader(array('../'));
 $loader->register();
 
 
@@ -45,7 +45,7 @@ class StreamTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetShortUrl()
 	{
-		//$this->assertLessThan(25, strlen($this->object->getShortUrl('http://apssouza.com.br/blog')));
+		$this->assertLessThan(25, strlen($this->object->getShortUrl('http://apssouza.com.br/blog')));
 	}
 
 	/**

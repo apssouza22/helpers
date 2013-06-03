@@ -4,7 +4,7 @@ namespace helpers;
 
 require_once dirname(__FILE__) . '/../Loader.php';
 
-$loader = new \helpers\Loader(array('../../'));
+$loader = new \helpers\Loader(array('../'));
 $loader->register();
 
 /**
