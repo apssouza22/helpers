@@ -30,14 +30,11 @@ class String
 	 * @param string $string_add é a string que pode ser adicionada a STRING, caso ela seja maior que TAMANHO (ex.: 3 pontinhos)
 	 * @param bool $cortar_palavra define se a palavra será cortada no meio (default: false)
 	 */
-	public static function cutString($string, $tamanho, $string_add = "", $cortar_palavra = false)
+	public static function cutString($string, $length, $text = "", $cut = false)
 	{
-		if (strlen($string) > $tamanho) {
-			$pos_ultimo_espaco = $cortar_palavra ? $tamanho : self::strposReverse($string, " ", $tamanho);
-			$string = $pos_ultimo_espaco === false ? substr($string, 0, $tamanho) . $string_add : substr($string, 0, $pos_ultimo_espaco) . $string_add;
-		}
-		$string = trim($string);
-		return $string;
+		$newtext = wordwrap($string, $length, "--", $cut);
+		$newtext = substr($newtext, 0, strpos($newtext, '--'));
+		return trim($newtext) . $text;
 	}
 
 	/**

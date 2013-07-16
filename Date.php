@@ -54,6 +54,27 @@ class Date
 		}
 		return $days;
 	}
+	
+	
+	/**
+	 * Compara a diferencia entre duas datas 
+	 * @return DateInterval http://www.php.net/manual/en/class.dateinterval.php
+	 */
+	public static function compareDateDiff(\DateTime $startDate, \DateTime $endDate ){
+		return $startDate->diff($endDate);
+	}
+
+	/**
+	 * Formata um timestamp no formato brasileiro (somente data)
+	 * @param string $date
+	 */
+	public static function getBrFormat($date, $withHour = false)
+	{
+		if($withHour){
+			return date("d/m/Y h:i:s", strtotime($date));
+		}
+		return date("d/m/Y", strtotime($date));
+	}
 
 }
 
