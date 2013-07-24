@@ -19,7 +19,7 @@ namespace helpers;
  */
 
 /**
- * Classe genÃ©rica que armazena no banco todos os emails enviados apartir do site
+ * Classe genérica que armazena no banco todos os emails enviados apartir do site
  *
  * @author Alexsandro Souza
  */
@@ -37,7 +37,7 @@ class StoreEmail
 		$this->pdo = $pdo;
 		if (!$pdo) {
 			$db_porta = $db_porta ? $db_porta : '3306';
-			$this->pdo = new PDO("mysql:host={$db_host}; dbname={$db_nome}; port={$db_porta}", $db_usuario, $db_senha);
+			$this->pdo = new \PDO("mysql:host={$db_host}; dbname={$db_nome}; port={$db_porta}", $db_usuario, $db_senha);
 		}
 	}
 
@@ -62,11 +62,11 @@ class StoreEmail
 			$stmte = $this->pdo->prepare("INSERT INTO " . self::TB_NAME . "(formulario, assunto, mensagem ,remetente_nome,remetente_email) VALUES 
 											(:form, :assunto, :msg,:nome,:email)");
 
-			$stmte->bindParam(":form", $this->formulario, PDO::PARAM_STR);
-			$stmte->bindParam(":assunto", $this->assunto, PDO::PARAM_STR);
-			$stmte->bindParam(":nome", $this->remetente_nome, PDO::PARAM_STR);
-			$stmte->bindParam(":email", $this->remetente_email, PDO::PARAM_STR);
-			$stmte->bindParam(":msg", $this->mensagem, PDO::PARAM_STR);
+			$stmte->bindParam(":form", $this->formulario, \PDO::PARAM_STR);
+			$stmte->bindParam(":assunto", $this->assunto, \PDO::PARAM_STR);
+			$stmte->bindParam(":nome", $this->remetente_nome, \PDO::PARAM_STR);
+			$stmte->bindParam(":email", $this->remetente_email, \PDO::PARAM_STR);
+			$stmte->bindParam(":msg", $this->mensagem, \PDO::PARAM_STR);
 
 			$executa = $stmte->execute();
 
@@ -113,4 +113,3 @@ class StoreEmail
 
 }
 
-?>
