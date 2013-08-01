@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers;
+namespace Helpers;
 
 /**
  * Helper de strings
@@ -10,10 +10,10 @@ namespace helpers;
 class String
 {
 
-	const REGEX_URL_LIMPA = '/[^A-Za-z0-9_|\\-]/'; // para retornar uma URL limpa
+	const REGEX_URL_LIMPA = '/[^A-Za-z0-9_|\\-]/u'; // para retornar uma URL limpa
 
 	/**
-	 * Retorna a extensão de um arquivo 
+	 * Retorna a extensÃ£o de um arquivo 
 	 * @param string $nome_arquivo
 	 */
 
@@ -27,22 +27,43 @@ class String
 	 * corta uma string se ela tem mais caracteres que $tamanho 
 	 * @param string $string string a ser cortada
 	 * @param int $tamanho limite de caracteres da string
-	 * @param string $string_add é a string que pode ser adicionada a STRING, caso ela seja maior que TAMANHO (ex.: 3 pontinhos)
-	 * @param bool $cortar_palavra define se a palavra será cortada no meio (default: false)
+	 * @param string $string_add Ã© a string que pode ser adicionada a STRING, caso ela seja maior que TAMANHO (ex.: 3 pontinhos)
+	 * @param bool $cortar_palavra define se a palavra serÃ¡ cortada no meio (default: false)
 	 */
 	public static function cutString($string, $length, $text = "", $cut = false)
 	{
-		$newtext = wordwrap($string, $length, "--", $cut);
-		$newtext = substr($newtext, 0, strpos($newtext, '--'));
-		return trim($newtext) . $text;
+		$newtext = self::mb_wordwrap($string, $length, "--", $cut);
+		$newtext = mb_substr($newtext, 0, mb_strpos($newtext, '--'));
+		return trim($newtext . $text);
+	}
+
+	public static function mb_wordwrap($string, $width = 75, $break = "\n", $cut = false)
+	{
+		if (!$cut) {
+			$regexp = '#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){' . $width . ',}\b#U';
+		} else {
+			$regexp = '#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){' . $width . '}#';
+		}
+		$string_length = mb_strlen($string, 'UTF-8');
+		$cut_length = ceil($string_length / $width);
+		$i = 1;
+		$return = '';
+		while ($i < $cut_length) {
+			preg_match($regexp, $string, $matches);
+			$new_string = $matches[0];
+			$return .= $new_string . $break;
+			$string = substr($string, strlen($new_string));
+			$i++;
+		}
+		return $return . $string;
 	}
 
 	/**
-	 * Acha a posição da última ocorrência do caractere procurado
+	 * Acha a posiï¿½ï¿½o da Ãºltima ocorrÃªncia do caractere procurado
 	 * Enter description here ...
 	 * @param string $str texto original
 	 * @param string $search texto procurado
-	 * @param $pos última posição (tamanho da string)
+	 * @param $pos Ãºltima posiÃ§Ã£o (tamanho da string)
 	 */
 	public static function strposReverse($str, $search, $pos)
 	{
@@ -60,7 +81,15 @@ class String
 	 */
 	public static function removeAccent($string)
 	{
-		return strtr($string, "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ", "AAAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy");
+		if (self::isUtf8($string)) {
+			$string = strtr(utf8_decode($string), utf8_decode("Ã€ÃÃ‚ÃƒÃ„Ã…Ã†Ã‡ÃˆÃ‰ÃŠÃ‹ÃŒÃÃŽÃÃÃ‘Ã’Ã“Ã”Ã•Ã–Ã˜Ã™ÃšÃ›ÃœÃÃŸÃ Ã¡Ã¢Ã£Ã¤Ã¥Ã¦Ã§Ã¨Ã©ÃªÃ«Ã¬Ã­Ã®Ã¯Ã°Ã±Ã²Ã³Ã´ÃµÃ¶Ã¸Ã¹ÃºÃ»Ã¼Ã½Ã¿"), "AAAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy");
+			return utf8_encode($string);
+		  }
+		return strtr($string, "Ã€ÃÃ‚ÃƒÃ„Ã…Ã†Ã‡ÃˆÃ‰ÃŠÃ‹ÃŒÃÃŽÃÃÃ‘Ã’Ã“Ã”Ã•Ã–Ã˜Ã™ÃšÃ›ÃœÃÃŸÃ Ã¡Ã¢Ã£Ã¤Ã¥Ã¦Ã§Ã¨Ã©ÃªÃ«Ã¬Ã­Ã®Ã¯Ã°Ã±Ã²Ã³Ã´ÃµÃ¶Ã¸Ã¹ÃºÃ»Ã¼Ã½Ã¿", "AAAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy");
+	}
+	
+	public static function isUtf8($string){
+		return preg_match("//u", $string);
 	}
 
 	/**
@@ -69,11 +98,15 @@ class String
 	 */
 	public static function getUrlFriendly($string)
 	{
-		return preg_replace(self::REGEX_URL_LIMPA, '', self::removeAccent(strtolower(str_replace(' ', '_', trim($string)))));
+		if(self::isUtf8($string)){
+//			return self::removeAccent(str_replace(' ', '-', trim($string)));
+			return preg_replace(self::REGEX_URL_LIMPA, '', self::removeAccent(mb_strtolower(str_replace(' ', '-', trim($string)),'UTF-8')));
+		}
+		return preg_replace(self::REGEX_URL_LIMPA, '', self::removeAccent(strtolower(str_replace(' ', '-', trim($string)))));
 	}
 
 	/**
-	 * Encripta a senha para um padrão numérico
+	 * Encripta a senha para um padrï¿½o numï¿½rico
 	 * @param string $senha Senha desejada
 	 * @return string $s Senha encriptada  
 	 */
@@ -104,7 +137,7 @@ class String
 	}
 
 	/**
-	 * Decripta a senha no padrão numérico usado em self::pwenc()
+	 * Decripta a senha no padrÃ£o numÃ©rico usado em self::pwenc()
 	 * @param int $numero Senha encriptada numericamente
 	 * @return string $la Senha decriptada  
 	 */

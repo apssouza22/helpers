@@ -1,9 +1,9 @@
 <?php
 
-namespace helpers;
+namespace Helpers;
 
 require_once dirname(__FILE__) . '/../Loader.php';
-$loader = new \helpers\Loader(array('../'));
+$loader = new \Helpers\Loader(array('../'));
 $loader->register();
 
 /**
@@ -23,7 +23,7 @@ class ArrayUtilTest extends \PHPUnit_Framework_TestCase {
 	 */
 	protected function setUp()
 	{
-		$this->object = new \helpers\ArrayUtil;
+		$this->object = new \Helpers\ArrayUtil;
 	}
 
 	/**
@@ -49,7 +49,7 @@ class ArrayUtilTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testVerificaTipo()
 	{
-		$this->assertInstanceOf('\helpers\ArrayUtil', $this->object);
+		$this->assertInstanceOf('\Helpers\ArrayUtil', $this->object);
 	}
 
 }

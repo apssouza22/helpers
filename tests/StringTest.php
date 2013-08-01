@@ -1,9 +1,9 @@
 <?php
 
-namespace helpers;
+namespace Helpers;
 
 require_once dirname(__FILE__) . '/../Loader.php';
-$loader = new \helpers\Loader(array('../'));
+$loader = new \Helpers\Loader(array('../'));
 $loader->register();
 
 /**
@@ -50,10 +50,10 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCutString()
 	{
-		$this->assertEquals('Teste unitário...',  $this->object->cutString('Teste unitário é lindo', 14,
+		$this->assertEquals('Teste unitÃ¡rio...',  $this->object->cutString('Teste unitÃ¡rio Ã© lindo', 14,
 															'...'));
 		
-		$this->assertEquals('Teste unitário',  $this->object->cutString('Teste unitário é lindo', 14));
+		$this->assertEquals('Teste unitÃ¡rio',  $this->object->cutString('Teste unitÃ¡rio e lindo', 14));
 	}
 
 
@@ -65,7 +65,8 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	public function testRemoveAccent()
 	{
 		// Remove the following lines when you implement this test.
-		$this->assertNotContains('á', $this->object->removeAccent('álex é lindo'));
+		$this->assertNotContains('Ã¡', $this->object->removeAccent('Ã¡lex Ã© lindo'));
+		$this->assertEquals('alex e lindo', $this->object->removeAccent('Ã¡lex Ã© lindo'));
 	}
 
 	/**
@@ -74,9 +75,9 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetUrlFriendly()
 	{
-		$this->assertNotContains('á', $this->object->getUrlFriendly('álex é lindo'));
-		$this->assertNotContains('/', $this->object->getUrlFriendly('álex é/ lindo'));
-		$this->assertNotContains('?', $this->object->getUrlFriendly('álex é lindo?'));
+		$this->assertEquals('alex-e-lindo', $this->object->getUrlFriendly('Ã¡lex Ã© lindo'));
+		$this->assertNotContains('/', $this->object->getUrlFriendly('Ã¡lex Ã©/ lindo'));
+		$this->assertNotContains('?', $this->object->getUrlFriendly('Ã¡lex Ã© lindo?'));
 	}
 
 }

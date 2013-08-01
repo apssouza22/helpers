@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers;
+namespace Helpers;
 
 //=======================================================//
 //Query sql da tabela
@@ -19,7 +19,7 @@ namespace helpers;
  */
 
 /**
- * Classe genérica que armazena no banco todos os emails enviados apartir do site
+ * Classe genÃ©rica que armazena no banco todos os emails enviados apartir do site
  *
  * @author Alexsandro Souza
  */
@@ -32,12 +32,12 @@ class StoreEmail
 	public $id;
 	private $pdo;
 
-	public function __construct($pdo = null, $db_host = null, $db_nome = null, $db_usuario = null, $db_senha = null, $db_porta = null)
+	public function __construct($pdo)
 	{
 		$this->pdo = $pdo;
-		if (!$pdo) {
-			$db_porta = $db_porta ? $db_porta : '3306';
-			$this->pdo = new \PDO("mysql:host={$db_host}; dbname={$db_nome}; port={$db_porta}", $db_usuario, $db_senha);
+		
+		if(!$pdo){
+			throw new \Exception('Informe uma conexï¿½o.');
 		}
 	}
 
@@ -105,11 +105,10 @@ class StoreEmail
 		$sql = "SELECT * FROM " . self::TB_NAME . " $complemento";
 		$result = $this->pdo->query($sql);
 
-		while ($objeto = $result->fetchObject(__CLASS__)) {
+		while ($objeto = $result->fetchObject()) {
 			$aObjetos[] = $objeto;
 		}
 		return $aObjetos;
 	}
 
 }
-

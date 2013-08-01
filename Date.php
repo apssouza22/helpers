@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers;
+namespace Helpers;
 
 /**
  * Helper de datas
@@ -40,15 +40,15 @@ class Date
 	}
 
 	/**
-	 * Retorna a representação textual dos dias da semana ou o dia se passado o parametro
-	 * @param int $day representação numerica do dia da semana
+	 * Retorna a representaï¿½ï¿½o textual dos dias da semana ou o dia se passado o parametro
+	 * @param int $day representaï¿½ï¿½o numerica do dia da semana
 	 * @param boolean $complete acrescenta a -feira junto aos dias
 	 * @return string com o dia da semana 
 	 */
 	public static function getDayWeek($day = null, $complete = false)
 	{
 		$feira = $complete ? '-feira' : '';
-		$days = array('Domingo', 'Segunda' . $feira, 'Terça' . $feira, 'Quarta' . $feira, 'Quinta' . $feira, 'Sexta' . $feira, 'Sábado');
+		$days = array('Domingo', 'Segunda' . $feira, 'Terï¿½a' . $feira, 'Quarta' . $feira, 'Quinta' . $feira, 'Sexta' . $feira, 'Sï¿½bado');
 		if ($day) {
 			return $days[$day];
 		}
@@ -71,7 +71,7 @@ class Date
 	public static function getBrFormat($date, $withHour = false)
 	{
 		if($withHour){
-			return date("d/m/Y h:i:s", strtotime($date));
+			return date("d/m/Y H:i:s", strtotime($date));
 		}
 		return date("d/m/Y", strtotime($date));
 	}

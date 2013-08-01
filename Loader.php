@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers;
+namespace Helpers;
 
 class Loader {
 

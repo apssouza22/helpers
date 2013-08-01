@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers;
+namespace Helpers;
 
 /**
  * Cuida dos uploads do site
@@ -89,7 +89,7 @@ class UserFile
 	{
 		$files = scandir('./' . self::folderTemp);
 		$currentTime = time();
-		$past = 86400; //um dia atás
+		$past = 86400; //um dia atï¿½s
 		foreach ($files as $filename) {
 			$filename = self::folderTemp . $filename;
 			if (file_exists($filename)) {

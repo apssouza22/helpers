@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers;
+namespace Helpers;
 
 class ContainerDi
 {
@@ -26,7 +26,7 @@ class ContainerDi
 	/**
 	 * Adicione um novo resolvedor para a matriz registro.
 	 * @Param string $name O id
-	 * @param $resolve que cria uma instância
+	 * @param $resolve que cria uma instï¿½ncia
 	 * @Return void
 	 */
 	public static function register($name, Closure $resolve)
@@ -35,7 +35,7 @@ class ContainerDi
 	}
 
 	/**
-	 * Criar a instância
+	 * Criar a instï¿½ncia
 	 * @ Param string $ name O id
 	 * @ Return misturado
 	 */
@@ -50,9 +50,9 @@ class ContainerDi
 	}
 
 	/**
-	 * Determinar se o ID é registrado
+	 * Determinar se o ID ï¿½ registrado
 	 * @ Param string $name O id
-	 * @ Return bool Se a ID existe ou não
+	 * @ Return bool Se a ID existe ou nï¿½o
 	 */
 	public static function registered($name)
 	{

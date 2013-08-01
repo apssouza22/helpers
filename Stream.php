@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers;
+namespace Helpers;
 
 /**
  * Classe helper de stream
@@ -12,8 +12,8 @@ class Stream
 
 	/**
 	 * Realiza o download de um arquivo para o servidor
-	 * @param string $remoteFile Endereço http do arquivo a ser baixado
-	 * @param string $savePath Caminho no servidor local onde será salvo o arquivo
+	 * @param string $remoteFile EndereÃ§o http do arquivo a ser baixado
+	 * @param string $savePath Caminho no servidor local onde serï¿½ salvo o arquivo
 	 * @return string Nome do arquivo salvo na pasta informada
 	 */
 	public static function download($remoteFile, $savePath)
@@ -32,7 +32,7 @@ class Stream
 	}
 
 	/**
-	 * Retorna uma url curta, utilizando um serviço do migreme
+	 * Retorna uma url curta, utilizando um serviï¿½o do migreme
 	 * @return String string com a url curta
 	 */
 	public static function getShortUrl($url)
@@ -42,8 +42,8 @@ class Stream
 	}
 
 	/**
-	 * Retorna o conteúdo de uma url usando curl
-	 * @return String string com o contéudo da página
+	 * Retorna o conteÃºdo de uma url usando curl
+	 * @return String string com o conteÃºdo da pÃ¡gina
 	 */
 	public static function getContentUrlByCurl($url)
 	{
