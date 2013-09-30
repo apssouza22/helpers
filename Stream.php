@@ -40,6 +40,19 @@ class Stream
 		$url = urlencode(trim($url));
 		return self::getContentUrlByCurl('http://migre.me/api.txt?url=' . $url);
 	}
+	
+	
+	public static function curlPost($params, $url, $opts = array()){
+		$ch = curl_init ($url);						
+		$opts[CURLOPT_POST] = true;
+		$opts[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
+		$opts[CURLOPT_RETURNTRANSFER] = true;
+		
+		curl_setopt_array($ch, $opts);
+		$returndata = curl_exec ($ch);
+		curl_close($ch);
+		return $returndata ? $returndata : curl_error($ch) ;
+	}
 
 	/**
 	 * Retorna o conteúdo de uma url usando curl

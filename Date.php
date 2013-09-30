@@ -70,6 +70,8 @@ class Date
 	 */
 	public static function getBrFormat($date, $withHour = false)
 	{
+        if(empty($date)){return '';}
+        
 		if($withHour){
 			return date("d/m/Y H:i:s", strtotime($date));
 		}

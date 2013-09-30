@@ -59,7 +59,7 @@ class String
 	}
 
 	/**
-	 * Acha a posi��o da última ocorrência do caractere procurado
+	 * Acha a posição da última ocorrência do caractere procurado
 	 * Enter description here ...
 	 * @param string $str texto original
 	 * @param string $search texto procurado
