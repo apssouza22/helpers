@@ -33,7 +33,9 @@ class String
 	public static function cutString($string, $length, $text = "", $cut = false)
 	{
 		$newtext = self::mb_wordwrap($string, $length, "--", $cut);
-		$newtext = mb_substr($newtext, 0, mb_strpos($newtext, '--'));
+        if($pos = mb_strpos($newtext, '--')){
+            $newtext = mb_substr($newtext, 0, $pos);
+        }
 		return trim($newtext . $text);
 	}
 
@@ -158,6 +160,11 @@ class String
 		}
 		return $la;
 	}
+    
+    public static function getYoutubeId($url){
+        preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $url, $matches);
+        return $matches[1];
+    }
 
 }
 
