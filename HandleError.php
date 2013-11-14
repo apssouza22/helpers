@@ -113,7 +113,7 @@ class HandleError
 				</head>
 				<body>
 					<h1>Erro no site</h1>
-					<p>Desculpe-nos pelo inconveniente. J� estamos trabalhando para resolv�-lo.</p>
+					<p>Desculpe-nos pelo inconveniente. Já estamos trabalhando para resolvê-lo.</p>
 				</body>
 			</html>
 			";
